@@ -22,4 +22,18 @@ console.log(exampleObject.methodName)
 
 /* -------------------------------------------------------------------------- */
 
-const Car = 
+const Car = {
+    brand: 'Ford',
+    model: 'Mustang',
+    year:'1967',
+    isAutoGear: true,
+    color: ['white', 'red'],
+    details: {
+        color1:'white',
+        color2:'red',
+        engineSize: 4900
+    },
+    startEngine: function(){
+        return 'Engine runned'
+    }
+}

@@ -47,7 +47,7 @@
 
 //     isRunning = false
 
-//     constructor (brand, model, year) { //CONSTRUCTOR PEK KALABALIK OLMAZ YUKARDA VEİRLİR GENLDE 
+//     constructor (brand, model, year) { //CONSTRUCTOR PEK KALABALIK OLMAZ YUKARDA VEİRLİR GENLDE
 //         this.brand = brand
 //         this.model = model
 //         this.year = year
@@ -79,30 +79,93 @@
 /* -------------------------------------------------------------------------- */
 //? Inharitance miras almak demektir. Başka bir class ın tüm özelliklerimi metodlarını devralme (parent child ilişkisi kurulur)
 
+// class Vehicle {
+// vehicleIsActive=false
+
+// constructor(vehicleType){
+//     this.vehicleType=vehicleType
+// }
+// }
+// class Car extends Vehicle { //bu yaptığımız işleme ınharitance denir. bİr classın başka bir classın özelliklerini devralmasına denir.
+
+//     isRunning = false
+
+//     constructor (brand, model, year,vehicleType='car') {
+//         // super(vehicleType) //' super miras aldığım class ı getirir
+//         super("car") //buradaki super vehicle temsil eder. This dediğimiz zaman içinde bulunduğumuz obje aklımıza gelliyor, Super dediğimizde aklımıza miras aldığımız class gelecek
+//         this.brand = brand  //? super() parametresi en tepede olmalı (Önce parent constructor çalıştırılmalı)
+//         this.model = model
+//         this.year = year
+//     }
+
+//     // constructor (brand, model, year) {
+//     //     //? super() parametresi en tepede olmalı (Önce parent constructor çalıştırılmalı)
+//     //     super('Car')
+//     //     this.brand = brand
+//     //     this.model = model
+//     //     this.year = year
+//     // }
+
+//     runEngine() {
+//         this.isRunning = true
+//         console.log('Engine runned')
+//         return this.isRunning
+//     }
+// }
+// const Ford=new Car('Ford', 'Mustang',1967)
+// console.log(Ford) //burda extend ile yaptık iki constructor çakıştı. Bne ikisini de çalıştırmalıyım.
+
+// class Accessory extends Car {
+
+//     constructor (accessoryName, brand, model, year, vehicleType) {
+//         super(brand, model, year, vehicleType)
+//         this.accessoryName = accessoryName
+//     }
+// }
+
+// const FordClimate=new Accessory ('Bosh Climate','Ford', 'Mustang',1967,'Car')
+// // const FordClimate = new Accessory('Bosh Climate', ...Object.values(Ford))
+
+// console.log(FordClimate)
+
+/* -------------------------------------------------------------------------- */
+//? Polymorphism: Miras aldığımız sınıfın özellik/methodlarını yeniden yazabilme.
+//? - Override: Üst metodla aynı isim ve yapıda yeni bir metod yazma. (ezme / iptal etme / önceliğini alma)
+//? - Overload: Üst metodla aynı isimde ama farklı yapıda (farklı adet/tip) yeni method oluşturma. (aynı anda ikisi de aktif) (JS desteklemez)
+
 class Vehicle {
-vehicleIsActive=false
+  vehicleIsActive = false;
 
-constructor(vehicleType){
-    this.vehicleType=vehicleType
+  constructor(vehicleType) {
+    this.vehicleType = vehicleType;
+  }
+  getDetails() {
+    console.log("Vehicle.getDetails runned.");
+    return this.vehicleType;
+  }
 }
+class Car extends Vehicle {
+  isRunning = false;
+
+  constructor(brand, model, year, vehicleType = "car") {
+    super(vehicleType);
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+
+  runEngine() {
+    this.isRunning = true;
+    console.log("Engine runned");
+    return this.isRunning;
+  }
+  //? Override: Üsteki method ismi ile aynen/yeniden tanımlanması.
+  //? Override: Parent classdaki method ezildi. Artık bu geçerli.
+  getDetails() {
+    console.log("Car.getDetails runned.");
+    // return this;
+    return super.getDetails(); //! ezdiğimiz methodu çalıştırma yöntemi
+  }
 }
-class Car extends Vehicle { //bu yaptığımız işleme ınharitance denir. bİr classın başka bir classın özelliklerini devralmasına denir.
-
-    isRunning = false
-
-    constructor (brand, model, year,vehicleType='car') { 
-        // super(vehicleType) //' super miras aldığım class ı getirir
-        super('car') //buradaki super vehicle ifade eder. This dediğimiz zaman içinde bulunduğumuz obje aklımıza gelliyor, Super dediğimizde aklımıza miras aldığımız class gelecek
-        this.brand = brand
-        this.model = model
-        this.year = year
-    }
-
-    runEngine() {
-        this.isRunning = true 
-        console.log('Engine runned')
-        return this.isRunning
-    }
-}
-const Ford=new Car('Ford', 'Mustang',1967)
-console.log(Ford) //burda extend ile yaptık iki constructor çakıştı. Bne ikisini de çalıştırmalıyım. 
+const Ford = new Car("Ford", "Mustang", 1967);
+console.log(Ford.getDetails());

@@ -133,39 +133,96 @@
 //? - Override: Üst metodla aynı isim ve yapıda yeni bir metod yazma. (ezme / iptal etme / önceliğini alma)
 //? - Overload: Üst metodla aynı isimde ama farklı yapıda (farklı adet/tip) yeni method oluşturma. (aynı anda ikisi de aktif) (JS desteklemez)
 
+// class Vehicle {
+//   vehicleIsActive = false;
+
+//   constructor(vehicleType) {
+//     this.vehicleType = vehicleType;
+//   }
+//   getDetails() {
+//     console.log("Vehicle.getDetails runned.");
+//     return this.vehicleType;
+//   }
+// }
+// class Car extends Vehicle {
+//   isRunning = false;
+
+//   constructor(brand, model, year, vehicleType = "car") {
+//     super(vehicleType);
+//     this.brand = brand;
+//     this.model = model;
+//     this.year = year;
+//   }
+
+//   runEngine() {
+//     this.isRunning = true;
+//     console.log("Engine runned");
+//     return this.isRunning;
+//   }
+//   //? Override: Üsteki method ismi ile aynen/yeniden tanımlanması.
+//   //? Override: Parent classdaki method ezildi. Artık bu geçerli.
+//   getDetails() {
+//     console.log("Car.getDetails runned.");
+//     // return this;
+//     return super.getDetails(); //! ezdiğimiz methodu çalıştırma yöntemi
+//   }
+// }
+// const Ford = new Car("Ford", "Mustang", 1967);
+// console.log(Ford.getDetails());
+
+//*Overload:
+    //? Overload: Üstteki methodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
+    //? JS Desteklemez. TypeSctrip destekler.
+    //? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
+// getDetails(parametre1,parametre2){
+//     return this
+// }
+
+
+/* ------------------------------------------------------- */
+//* Access Modifiers:
+//* - PUBLIC: Genel erişime açık. (Parent: Yes, Child: Yes, Instance: Yes)
+//* - PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
+//* - PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
+
 class Vehicle {
-  vehicleIsActive = false;
+    vehicleIsActive = false; //'Public Property klasik tanımladığımız değişkenler, heryerden erişeniliriz
+    #privateProperty ='private-value' //' private yaptığım bir property veya model içinde tanımladığım class üzerinden erişebilir onblur. Diğer türlü undefined döner
+    #privateMethod() { return this } // PRIVATE METHOD
+    
+    _protectedProperty = 'protected-value' // PROTECTED PROPERTY
+    _protectedMethod() { return this } // PROTECTED METHOD
+    
+    constructor(vehicleType) {
+      this.vehicleType = vehicleType;
+    }
+    getDetails() {
+      console.log("Vehicle.getDetails runned.");
+      return this.vehicleType;
+    }
+  }
+  class Car extends Vehicle {
+    isRunning = false;
+  
+    constructor(brand, model, year, vehicleType = "car") {
+      super(vehicleType);
+      this.brand = brand;
+      this.model = model;
+      this.year = year;
+    }
+  
+    runEngine() {
+      this.isRunning = true;
+      console.log("Engine runned");
+      return this.isRunning;
+    }
 
-  constructor(vehicleType) {
-    this.vehicleType = vehicleType;
+    getDetails() {
+      console.log("Car.getDetails runned.");
+      // return this;
+      return super.getDetails(); 
+    }
   }
-  getDetails() {
-    console.log("Vehicle.getDetails runned.");
-    return this.vehicleType;
-  }
-}
-class Car extends Vehicle {
-  isRunning = false;
-
-  constructor(brand, model, year, vehicleType = "car") {
-    super(vehicleType);
-    this.brand = brand;
-    this.model = model;
-    this.year = year;
-  }
-
-  runEngine() {
-    this.isRunning = true;
-    console.log("Engine runned");
-    return this.isRunning;
-  }
-  //? Override: Üsteki method ismi ile aynen/yeniden tanımlanması.
-  //? Override: Parent classdaki method ezildi. Artık bu geçerli.
-  getDetails() {
-    console.log("Car.getDetails runned.");
-    // return this;
-    return super.getDetails(); //! ezdiğimiz methodu çalıştırma yöntemi
-  }
-}
-const Ford = new Car("Ford", "Mustang", 1967);
-console.log(Ford.getDetails());
+  const Ford = new Car("Ford", "Mustang", 1967);
+  console.log(Ford);
+  

@@ -282,3 +282,8 @@ console.log(Ford.getPrice)
 
 console.log(Car.staticProp) //* Class'dan static erişilebilir.
 console.log(Ford.staticProp) //* Instance'dan static erişilemez.
+
+/* ------------------------------------------------------- */
+//? ABSTRACTION: Soyutlama/Modelleme (Class ile obje üretebilme. Aynı amaç için kullanılan değişken ve methodların bir class içinde yazıyor olması)
+//? ENCAPCULLATION: Kapsülleme/Ayrıştırma (Kodların gizliliği, private değişkenlere erişilemiyor olması ve birbirinden bağımsız çalışmaları.)
+/* ------------------------------------------------------- */

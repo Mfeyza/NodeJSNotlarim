@@ -257,10 +257,28 @@ class Car {
     console.log("fiyat güncellendi");
     return this.#price;
   }
+
+  
+    //? Direkt class ile erişmek istediklerimizi static ile işaretleriz.
+    //? Statik property veya methodlara intance ile erişilmez.
+    static staticProp = 'static-value'
+
+    //? Static methodlarda this ifadesi sadece statikleri çağırır.
+    static staticMethod() {
+        console.log('Static Method çalsti')
+        return this
+    }
 }
 
 const Ford = new Car("Ford", "Mustang", 1967);
+// console.log(Ford.#price) // NO ACCESS
 console.log(Ford.getPrice); //' getter ve setter metodlar bir property gibi kullanılır bu yüzden () koymadık
 //  Ford.setPrice(500) //! setter metdo normal method gibi çağrılmaz
 Ford.setPrice=500
 console.log(Ford.getPrice)
+//' Bir class içine direkt erişim olmaz...
+//* console.log(Car.runEngine())
+//' ... static olanlara erişebiliriz.
+
+console.log(Car.staticProp) //* Class'dan static erişilebilir.
+console.log(Ford.staticProp) //* Instance'dan static erişilemez.

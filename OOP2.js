@@ -171,13 +171,12 @@
 // console.log(Ford.getDetails());
 
 //*Overload:
-    //? Overload: Üstteki methodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
-    //? JS Desteklemez. TypeSctrip destekler.
-    //? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
+//? Overload: Üstteki methodun aynı isim ama farklı parametre adet/tip ile yeniden tanımlanması.
+//? JS Desteklemez. TypeSctrip destekler.
+//? Çalışma prensibi: Çağrıldığı zaman parametreye göre ilgili method çalışır.
 // getDetails(parametre1,parametre2){
 //     return this
 // }
-
 
 /* ------------------------------------------------------- */
 //* Access Modifiers:
@@ -185,44 +184,83 @@
 //* - PROTECTED: Sadece tanımlı olduğu class ve Inherit edilen child-class erişebilir. (Parent: Yes, Child: Yes, Instance: No) (JS Desteklemez.)
 //* - PRIVATE: Sadece tanımlı olduğu class içinde erişim var. (Parent: Yes, Child: No, Instance: No)
 
-class Vehicle {
-    vehicleIsActive = false; //'Public Property klasik tanımladığımız değişkenler, heryerden erişeniliriz
-    #privateProperty ='private-value' //' private yaptığım bir property veya model içinde tanımladığım class üzerinden erişebilir onblur. Diğer türlü undefined döner
-    #privateMethod() { return this } // PRIVATE METHOD
-    
-    _protectedProperty = 'protected-value' // PROTECTED PROPERTY
-    _protectedMethod() { return this } // PROTECTED METHOD
-    
-    constructor(vehicleType) {
-      this.vehicleType = vehicleType;
-    }
-    getDetails() {
-      console.log("Vehicle.getDetails runned.");
-      return this.vehicleType;
-    }
-  }
-  class Car extends Vehicle {
-    isRunning = false;
-  
-    constructor(brand, model, year, vehicleType = "car") {
-      super(vehicleType);
-      this.brand = brand;
-      this.model = model;
-      this.year = year;
-    }
-  
-    runEngine() {
-      this.isRunning = true;
-      console.log("Engine runned");
-      return this.isRunning;
-    }
+// class Vehicle {
+//     vehicleIsActive = false; //'Public Property klasik tanımladığımız değişkenler, heryerden erişeniliriz
+//     #privateProperty ='private-value' //' private yaptığım bir property veya model içinde tanımladığım class üzerinden erişebilir onblur. Diğer türlü undefined döner
+//     #privateMethod() { return this } // PRIVATE METHOD
 
-    getDetails() {
-      console.log("Car.getDetails runned.");
-      // return this;
-      return super.getDetails(); 
-    }
+//     _protectedProperty = 'protected-value' // PROTECTED PROPERTY
+//     _protectedMethod() { return this } // PROTECTED METHOD
+
+//     constructor(vehicleType) {
+//       this.vehicleType = vehicleType;
+//     }
+//     getDetails() {
+//       console.log("Vehicle.getDetails runned.");
+//       return this.vehicleType;
+//     }
+//   }
+//   class Car extends Vehicle {
+//     isRunning = false;
+
+//     constructor(brand, model, year, vehicleType = "car") {
+//       super(vehicleType);
+//       this.brand = brand;
+//       this.model = model;
+//       this.year = year;
+//     }
+
+//     runEngine() {
+//       this.isRunning = true;
+//       console.log("Engine runned");
+//       return this.isRunning;
+//     }
+
+//     getDetails() {
+//       console.log("Car.getDetails runned.");
+//       // return this;
+//       return super.getDetails();
+//     }
+//   }
+//   const Ford = new Car("Ford", "Mustang", 1967);
+//   console.log(Ford);
+
+/* -------------------------------------------------------------------------- */
+/*                                GETTER & SETTER                             */
+/* -------------------------------------------------------------------------- */
+
+//* GETTER & SETTER METHODS: Görevi veri getirme (getter) ve veri güncelleme (setter) olan metodlardır.
+//* "STATIC" KEYWORD: Class'dan direkt erişim. (Instance erişemez.)
+
+class Car {
+  #price;
+
+  isRunning = false;
+
+  constructor(brand, model, year) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
   }
-  const Ford = new Car("Ford", "Mustang", 1967);
-  console.log(Ford);
-  
+
+  runEngine() {
+    this.isRunning = true;
+    console.log("Engine runned");
+    return this.isRunning;
+  }
+
+  set setPrice(newPrice) {
+    this.#price = newPrice;
+    console.log("fiyat güncellenmedi");
+  }
+  get getPrice() {
+    console.log("fiyat güncellendi");
+    return this.#price;
+  }
+}
+
+const Ford = new Car("Ford", "Mustang", 1967);
+console.log(Ford.getPrice); //' getter ve setter metodlar bir property gibi kullanılır bu yüzden () koymadık
+//  Ford.setPrice(500) //! setter metdo normal method gibi çağrılmaz
+Ford.setPrice=500
+console.log(Ford.getPrice)

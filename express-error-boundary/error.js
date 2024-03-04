@@ -40,8 +40,9 @@ const PORT = process.env.PORT || 8000;
 /* -------------------------------------------------------------------------- */
 
 app.get("/*", (req, res) => {
-    res.errorStatusCode=404
-    throw new Error("error message");
+
+    res.errorStatusCode = 404
+    throw new Error("error message", {cause: "No Reason :)"});
   });
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
@@ -50,10 +51,14 @@ app.get("/*", (req, res) => {
 
   const errorHandler= (err,req,res,next)=>{
     console.log('error handle started')
+
     const errorStatusCode=res?.errorStatusCode || 500
+
     res.status(errorStatusCode).send({
         error:true,
-        message:err.message 
+        message:err.message ,
+        cause:err.cause,
+        stack: err.stack,
    })
   }
   app.use(errorHandler)

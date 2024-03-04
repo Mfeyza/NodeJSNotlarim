@@ -1,14 +1,18 @@
 'use strict'
 
+const router=require('express').Router()
 // router.get('/', (req,res)=> {res.send({message : 'home'})})
 // router.get('/about',(req,res)=> res.send({message: "About"}))
 // router.get('/user/id', (req,res)=> res.send ({message: "user "}))
 
+const {middleFunct1, middleFunct2}=require('../middlewares/')
+
+router.use(middleFunct1,middleFunct2)
 
 //' router.route()
 // const express=require('express')
 // router.route('/')
- const router=require('express').Router() 
+ 
 router.route('/')
 .get((req,res)=> res.send({message:"get"}))
 .post((req,res)=> res.send({message:"post"}))
